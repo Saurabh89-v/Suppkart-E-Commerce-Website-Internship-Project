@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weight Loss Products</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 15px 20px; background: #fff;
+  border-bottom: 5px solid #521684; position: relative; z-index: 2;
+  min-height: 80px; gap: 20px;
+}
+.logo img { height: 60px; margin-left: 30px; }
+.left-section { display: flex; align-items: center; gap: 20px; }
+.menu-toggle-label { font-size: 26px; cursor: pointer; padding: 10px; margin-left: 70px; }
+.search-area { flex: 1; display: flex; align-items: center; margin: 0 10px; max-width: 800px; }
+select { padding: 12px 16px; border: 1px solid #ccc; font-size: 14px; border-radius: 4px 0 0 4px; }
+input[type="search"] { padding: 12px 16px; border: 1px solid #ccc; border-left: none; flex: 1; font-size: 14px; border-radius: 0 4px 4px 0; }
+.right-icons { display: flex; align-items: center; gap: 40px; }
+.icon-container { position: relative; }
+.icon-container img { width: 20px; height: 20px; }
+.count-badge { position: absolute; top: -10px; right: -12px; background: #ff4c4c; color: white; font-size: 12px; padding: 1px 6px; border-radius: 50%; }
+.sign-in-btn { background: linear-gradient(90deg,#26045F, #540564); color: white; padding: 8px 20px; border: none; border-radius: 4px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 15px; }
+.sign-in-btn img { width: 18px; height: 18px; object-fit: contain; }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      padding: 15px 30px;
+      font-size: 14px;
+    }
+
+    .breadcrumb a {
+      color: #52045F;
+      text-decoration: none;
+    }
+
+    .breadcrumb span {
+      color: #777;
+    }
+
+    .page-title {
+      background-color: #2C015A ;
+      color: white;
+      padding: 20px 10px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 100;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+
+    .product-page {
+      display: flex;
+      max-width: 1200px;
+      margin: 30px auto;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .filter-sidebar {
+      flex: 0 0 220px;
+      background:#F7F7F7 ;
+      padding: 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+    }
+
+    .filter-sidebar h3 {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .filter-group {
+      margin-bottom: 20px;
+    }
+
+    .filter-group h4 {
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .product-grid-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-grid-header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 15px;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .product-grid-header select {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #eee;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s ease;
+      text-align: left;
+    }
+
+   
+
+    .img-container {
+      background-color:#F7F7F7 ;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      padding: 20px;
+    }
+
+    .img-container img {
+      max-height: 130%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .product-info {
+      padding: 15px;
+      background-color: #fff;
+    }
+
+    .product-info .rating {
+      color: #f39c12;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .product-info h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .product-info p {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 14px;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 5px;
+    }
+
+    .new-price {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    .pagination {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pagination a,
+    .pagination span {
+      padding: 6px 12px;
+      border: 1px solid #ddd;
+      color: #333;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .pagination a.active {
+      background-color: #52045F;
+      color: #fff;
+      border-color: #52045F;
+    }
+
+    .footer {
+      background: linear-gradient(180deg, #26015C , #52045F);
+      color: #fff;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 60px;
+    }
+
+   
+
+
+
+footer {
+  background: linear-gradient(180deg, #26015C , #52045F);
+  color: #fff;
+  padding: 50px 0px 25px;
+  font-size: 14px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-left { flex: 1.3; min-width: 200px; }
+.footer-left img { width: 90px; margin-bottom: 15px; }
+.footer-left p { margin: 6px 0; font-size: 13px; line-height: 1.6; }
+.social-icons { margin-top: 40px; display: flex; gap: 10px; }
+.social-icons a img { width: 24px; height: 24px; transition: transform 0.3s ease; }
+
+.footer-column-wrapper {
+  display: flex;
+  flex: 2;
+  gap: 40px;
+}
+
+.footer-column { flex: 1; min-width: 150px; }
+.footer-column h4 { font-weight: 600; margin-bottom: 10px; font-size: 15px; }
+.footer-column ul { list-style: none; padding: 0; margin: 0; }
+.footer-column ul li { margin: 14px 0; }
+.footer-column ul li a { color: #ccc; text-decoration: none; font-size: 13px; }
+.footer-column ul li a:hover { color: #fff; }
+
+.newsletter { flex: 1.3; min-width: 220px; }
+.newsletter h4 { font-weight: 600; margin-bottom: 15px; font-size: 15px; }
+.newsletter p { margin: 10px 0 20px; font-size: 13px; color: #ccc; }
+.newsletter form { display: flex; align-items: center; margin-bottom: 10px; }
+.newsletter input[type="email"] { flex: 1; padding: 9px; border: 1px solid #fff; border-right: none; background: transparent; color: #fff; font-size: 13px; outline: none; }
+.newsletter input::placeholder { color: #ccc; }
+.newsletter button { padding: 9px 14px; background: #fff; color: #3a0070; border: 1px solid #fff; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.newsletter button:hover { background: #eee; }
+.newsletter label { font-size: 12px; line-height: 18px; color: #ccc; margin-top: 5px; max-width: 320px; display: block; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 30px;
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer-bottom p { margin: 5px 0; }
+.payment-icons img { height: 40px; margin-left: 12px; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="left-section">
+    <div class="logo"><img src="image/logo.png" alt="logo" /></div>
+    <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
+  </div>
+  <div class="search-area">
+    <select>
+      <option>All Categories</option>
+      <option>Category 1</option>
+      <option>Category 2</option>
+      <option>Category 3</option>
+    </select>
+    <input type="search" placeholder="I'm shopping for..." />
+  </div>
+  <div class="right-icons">
+    <div class="icon-container"><img src="image/favorite.png" alt="Wishlist"><span class="count-badge">0</span></div>
+    <div class="icon-container"><img src="image/shopping-cart.png" alt="Cart"><span class="count-badge">0</span></div>
+    <button class="sign-in-btn"><img src="image/people (2).png" alt="User Icon" /> Sign in</button>
+  </div>
+</nav>
+
+
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">Home</a> / <span>Weight Loss</span>
+  </div>
+
+  <!-- Page Title -->
+  <div class="page-title">
+    Weight Loss
+  </div>
+
+  <!-- Main Content -->
+  <div class="product-page">
+
+    <!-- Sidebar -->
+    <aside class="filter-sidebar">
+      <h3>Filter</h3>
+
+      <div class="filter-group">
+        <h4>Brand</h4>
+        <label><input type="checkbox"> Louis Philippe (10)</label>
+        <label><input type="checkbox"> Louis Philippe (10)</label>
+        <label><input type="checkbox"> Louis Philippe (10)</label>
+      </div>
+
+      <div class="filter-group">
+        <h4>Price</h4>
+        <label><input type="checkbox"> Rs. 100 to Rs. 1000</label>
+        <label><input type="checkbox"> Rs. 1000 to Rs. 2000</label>
+        <label><input type="checkbox"> Rs. 2000 to Rs. 3000</label>
+      </div>
+
+      <div class="filter-group">
+        <h4>Discount Range</h4>
+        <label><input type="checkbox"> 10% and above</label>
+        <label><input type="checkbox"> 20% and above</label>
+        <label><input type="checkbox"> 30% and above</label>
+        <label><input type="checkbox"> 40% and above</label>
+        <label><input type="checkbox"> 50% and above</label>
+      </div>
+    </aside>
+
+    <!-- Products -->
+    <section class="product-grid-section">
+
+      <div class="product-grid-header">
+        <span>Sort by:</span>
+        <select>
+          <option>Recommended</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div>
+
+      <div class="product-grid">
+        <!-- Product Card -->
+        <div class="product-card">
+          <div class="img-container">
+            <img src="image/image_2023-10-18_652f9b2ef3eee 1.png" alt="Full Spectrum">
+          </div>
+          <div class="product-info">
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <h4>Full Spectrum</h4>
+            <p>500mg - 60 caps</p>
+            <div class="price">
+              <span class="old-price">Rs. 3500</span>
+              <span class="new-price">Rs. 2500</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="img-container">
+            <img src="image/image_2023-10-18_652f9b2ef3eee 1.png" alt="Full Spectrum">
+          </div>
+          <div class="product-info">
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <h4>Full Spectrum</h4>
+            <p>500mg - 60 caps</p>
+            <div class="price">
+              <span class="old-price">Rs. 3500</span>
+              <span class="new-price">Rs. 2500</span>
+            </div>
+          </div>
+        </div>
+ <div class="product-card">
+          <div class="img-container">
+            <img src="image/image_2023-10-18_652f9b2ef3eee 1.png" alt="Full Spectrum">
+          </div>
+          <div class="product-info">
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <h4>Full Spectrum</h4>
+            <p>500mg - 60 caps</p>
+            <div class="price">
+              <span class="old-price">Rs. 3500</span>
+              <span class="new-price">Rs. 2500</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="product-card">
+          <div class="img-container">
+            <img src="image/image_2023-10-18_652f9b2ef3eee 1.png" alt="Full Spectrum">
+          </div>
+          <div class="product-info">
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <h4>Full Spectrum</h4>
+            <p>500mg - 60 caps</p>
+            <div class="price">
+              <span class="old-price">Rs. 3500</span>
+              <span class="new-price">Rs. 2500</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="product-card">
+          <div class="img-container">
+            <img src="image/image_2023-10-18_652f9b2ef3eee 1.png" alt="Full Spectrum">
+          </div>
+          <div class="product-info">
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <h4>Full Spectrum</h4>
+            <p>500mg - 60 caps</p>
+            <div class="price">
+              <span class="old-price">Rs. 3500</span>
+              <span class="new-price">Rs. 2500</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="product-card">
+          <div class="img-container">
+            <img src="image/image_2023-10-18_652f9b2ef3eee 1.png" alt="Full Spectrum">
+          </div>
+          <div class="product-info">
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <h4>Full Spectrum</h4>
+            <p>500mg - 60 caps</p>
+            <div class="price">
+              <span class="old-price">Rs. 3500</span>
+              <span class="new-price">Rs. 2500</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="product-card">
+          <div class="img-container">
+            <img src="image/image_2023-10-18_652f9b2ef3eee 1.png" alt="Full Spectrum">
+          </div>
+          <div class="product-info">
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <h4>Full Spectrum</h4>
+            <p>500mg - 60 caps</p>
+            <div class="price">
+              <span class="old-price">Rs. 3500</span>
+              <span class="new-price">Rs. 2500</span>
+            </div>
+          </div>
+        </div>
+
+         <div class="product-card">
+          <div class="img-container">
+            <img src="image/image_2023-10-18_652f9b2ef3eee 1.png" alt="Full Spectrum">
+          </div>
+          <div class="product-info">
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <h4>Full Spectrum</h4>
+            <p>500mg - 60 caps</p>
+            <div class="price">
+              <span class="old-price">Rs. 3500</span>
+              <span class="new-price">Rs. 2500</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <a href="#">«</a>
+        <a class="active" href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <span>...</span>
+        <a href="#">40</a>
+        <a href="#">»</a>
+      </div>
+    </section>
+  </div>
+
+  
+ <!-- ===== FOOTER ===== -->
+
+<footer>
+  <div class="footer-container">
+
+    <!-- Left Section -->
+    <div class="footer-left">
+      <img src="image/white logo.png" alt="Logo" />
+      <p>BEYOND JUST WORK, B-38, Old DLF Colony,<br>Sector 14, Gurugram, Haryana 122001</p>
+      <p>Call us : +91 6969696969</p>
+      <p>Email : support@gmail.com</p>
+      <div class="social-icons">
+        <a href="#"><img src="image/facebook1.png" alt="Facebook" /></a>
+        <a href="#"><img src="image/twitter2.png" alt="Twitter" /></a>
+        <a href="#"><img src="image/linkedin3.png" alt="LinkedIn" /></a>
+        <a href="#"><img src="image/pinterest4.png" alt="Pinterest" /></a>
+        <a href="#"><img src="image/instagram5.png" alt="Instagram" /></a>
+      </div>
+    </div>
+
+    <div class="footer-column-wrapper">
+      <div class="shop-by footer-column">
+        <h4>Shop by</h4>
+        <ul>
+          <li><a href="brands.html">Brands</a></li>
+          <li><a href="shop-by-goal.html">Shop by goal</a></li>
+          <li><a href="top10.html">Top 10</a></li>
+          <li><a href="beauty.html">Beauty</a></li>
+        </ul>
+      </div>
+
+      <div class="information footer-column">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+        </ul>
+      </div>
+
+      <div class="customer-service footer-column">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="help.html">Help & FAQs</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="returns.html">Online Returns Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter">
+      <h4>Newsletter Sign Up</h4>
+      <p>Receive our latest updates about our products and promotions.</p>
+      <form>
+        <input type="email" placeholder="Email" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <label>
+        <input type="checkbox" />
+        I agree with the Terms of Use and Privacy Policy and I declare that I have read the information required in accordance with Article 13 of GDPR
+      </label>
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <p>Logo © 2023. All Rights Reserved</p>
+    <div class="payment-icons">
+      <img src="image/mastercard_logo.png" alt="Mastercard" />
+      <img src="image/VISA_logo.png" alt="Visa" />
+      <img src="image/American_Express_logo.png" alt="Amex" />
+      <img src="image/PayPal_logo.png" alt="PayPal" />
+      <img src="image/GooglePay_logo.png" alt="Google Pay" />
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

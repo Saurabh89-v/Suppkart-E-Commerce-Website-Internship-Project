@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EA Nutrition E-commerce website</title>
+<link rel="icon" type="image/png" href="image/white logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;500;600;700&family=Luxia&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luxia&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <!-- ==== HEADER SECTOIN ===== -->
+<header>
+<input type="checkbox" id="menu-toggle" />
+
+<!-- NAVBAR -->
+<nav>
+  <div class="left-section">
+    <div class="logo"><img src="image/logo.png" alt="logo" /></div>
+    <label for="menu-toggle" class="menu-toggle-label">&#9776;</label>
+  </div>
+  <div class="search-area">
+    <select>
+      <option>All Categories</option>
+      <option>Category 1</option>
+      <option>Category 2</option>
+      <option>Category 3</option>
+    </select>
+    <input type="search" placeholder="I'm shopping for..." />
+  </div>
+  <div class="right-icons">
+    <div class="icon-container"><img src="image/favorite.png" alt="Wishlist"><span class="count-badge">0</span></div>
+    <div class="icon-container"><img src="image/shopping-cart.png" alt="Cart"><span class="count-badge">0</span></div>
+    <button class="sign-in-btn"><img src="image/people (2).png" alt="User Icon" /> Sign in</button>
+  </div>
+</nav>
+
+
+<!-- AUTH MODAL -->
+<div id="auth-modal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+
+    <!-- SIGN IN -->
+    <div id="auth-login" class="auth-step">
+      <h2>LOGO</h2>
+      <input type="text" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button class="modal-btn">Sign In</button>
+      <p class="switch-link" data-step="forgot">Forgot Your Password?</p>
+      <p class="switch-link" data-step="register">Don’t have an account?<br> <br>
+        Sign Up Now</p>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="auth-register" class="auth-step" style="display:none;">
+      <h2>LOGO</h2>
+      <input type="text" placeholder="Full Name">
+      <input type="text" placeholder="Mobile Number">
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <input type="password" placeholder="Confirm Password">
+      <button class="modal-btn">Register</button>
+      <p class="switch-link" data-step="login">Go to Login</p>
+    </div>
+  <!-- FORGOT PASSWORD -->
+   <div id="auth-forgot" class="auth-step" style="display:none;">
+  <h2>LOGO</h2>
+  <input type="text" placeholder="Email / Mobile Number">
+  
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+    <span id="captcha-text" style="background:#eee; padding:8px 12px; font-weight:bold; border-radius:5px; letter-spacing:2px;"></span>
+    <button type="button" onclick="generateCaptcha()" style="margin-left:10px; padding:8px 12px; border:none; background:#540564; color:#fff; border-radius:5px; cursor:pointer;">↻</button>
+  </div>
+
+  <input type="text" id="captcha-input" placeholder="Enter Captcha">
+  <button class="modal-btn" onclick="if(validateCaptcha(document.getElementById('captcha-input').value)){showStep('otp');} else {alert('Captcha not matched!');}">Reset My Password</button>
+  <p class="switch-link" data-step="login">Go to Login</p>
+</div>
+ <!--otp -->
+ <div id="auth-otp" class="auth-step" style="display:none;">
+  <h2>LOGO</h2>
+  <input type="text" placeholder="Enter OTP">
+  <button class="modal-btn" onclick="showStep('update')">Continue</button>
+  <p class="switch-link" id="resend-otp" data-step="otp">Resend OTP (00:59)</p>
+</div>
+
+    
+    <!-- UPDATE PASSWORD -->
+    <div id="auth-update" class="auth-step" style="display:none;">
+      <h2>LOGO</h2>
+      <input type="password" placeholder="New Password">
+      <input type="password" placeholder="Confirm Password">
+      <button class="modal-btn">Update My Password</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="sidebar-header">
+    <img src="image/white logo.png" class="sidebar-logo" alt="logo" />
+    <label for="menu-toggle" class="close-btn">&times;</label>
+  </div>
+  <ul class="sidebar-menu">
+    <li class="dropdown">
+      <div class="dropdown-title" onclick="toggleDropdown(this)">Brands <span></span></div>
+      <ul class="dropdown-menu"><li>Brand 1</li><li>Brand 2</li><li>Brand 3</li><li>Brand 4</li><li>Brand 5</li><li>Brand 6</li><li>Brand 7</li><li>Brand 8</li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <div class="dropdown-title" onclick="toggleDropdown(this)">Shop By Goals <span></span></div>
+      <ul class="dropdown-menu"><li>Brand 1</li><li>Brand 2</li><li>Brand 3</li><li>Brand 4</li><li>Brand 5</li><li>Brand 6</li><li>Brand 7</li><li>Brand 8</li></ul>
+    </li>
+    <li class="dropdown">
+      <div class="dropdown-title" onclick="toggleDropdown(this)">Top 10 <span></span></div>
+      <ul class="dropdown-menu"><li>Brand 1</li><li>Brand 2</li><li>Brand 3</li><li>Brand 4</li><li>Brand 5</li><li>Brand 6</li><li>Brand 7</li><li>Brand 8</li></ul>
+    </li>
+    <li class="dropdown">
+      <div class="dropdown-title" onclick="toggleDropdown(this)">Shop by Sports <span></span></div>
+      <ul class="dropdown-menu"><li>Brand 1</li><li>Brand 2</li><li>Brand 3</li><li>Brand 4</li><li>Brand 5</li><li>Brand 6</li><li>Brand 7</li><li>Brand 8</li></ul>
+    </li>
+    <li class="dropdown">
+      <div class="dropdown-title" onclick="toggleDropdown(this)">Contact Us <span></span></div>
+      <ul class="dropdown-menu"><li>Brand 1</li><li>Brand 2</li><li>Brand 3</li><li>Brand 4</li><li>Brand 5</li><li>Brand 6</li><li>Brand 7</li><li>Brand 8</li></ul>
+    </li>
+  </ul>
+</div>
+<label for="menu-toggle" class="overlay"></label>
+
+<!-- HERO + RIGHT SIDE -->
+<div class="hero-wrapper">
+
+  <!-- HERO SLIDER -->
+  <section class="hero-slider">
+    <div class="slides">
+      <!-- Slide 1 -->
+      <div class="slide" style="background-image: url('image/herobg.png');">
+        <div class="hero-content">
+          <div class="tag">Trendy Collection's</div>
+          <div class="curved-text">
+            <h1>Easy Mix <br> <span>Complete Protein</span></h1>
+            <svg class="underline" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 35 Q 100 5 195 20" stroke="#3f0071" stroke-width="3" fill="transparent" />
+            </svg>
+          </div>
+          <p>Elevate your workout with our Complete Protein box, packed with a balanced blend of essential amino acids for muscle repair and growth. Ideal for post-workout recovery and strength building.</p>
+          <a href="#" class="btn">Explore now</a>
+          <div class="dots"><span class="active"></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="hero-image"><img src="image/hero1.png" alt="Complete Protein"></div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="slide" style="background-image: url('image/herobg.png');">
+        <div class="hero-content">
+          <div class="tag">Trendy Collection's</div>
+          <div class="curved-text">
+            <h1>Easy Mix <br> <span>Complete Protein</span></h1>
+            <svg class="underline" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 35 Q 100 5 195 20" stroke="#3f0071" stroke-width="3" fill="transparent" />
+            </svg>
+          </div>
+          <p>Elevate your workout with our Complete Protein box, packed with a balanced blend of essential amino acids for muscle repair and growth. Ideal for post-workout recovery and strength building.</p>
+          <a href="#" class="btn">Explore now</a>
+          <div class="dots"><span></span><span class="active"></span><span></span><span></span></div>
+        </div>
+        <div class="hero-image"><img src="image/hero2.png" alt="Protein Boost"></div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="slide" style="background-image: url('image/herobg.png');">
+        <div class="hero-content">
+          <div class="tag">Trendy Collection's</div>
+          <div class="curved-text">
+            <h1>Easy Mix <br> <span>Complete Protein</span></h1>
+            <svg class="underline" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 35 Q 100 5 195 20" stroke="#3f0071" stroke-width="3" fill="transparent" />
+            </svg>
+          </div>
+          <p>Elevate your workout with our Complete Protein box, packed with a balanced blend of essential amino acids for muscle repair and growth. Ideal for post-workout recovery and strength building.</p>
+          <a href="#" class="btn">Explore now</a>
+          <div class="dots"><span></span><span></span><span class="active"></span><span></span></div>
+        </div>
+        <div class="hero-image"><img src="image/hero3.png" alt="Workout Fuel"></div>
+      </div>
+      <!-- Slide 4 -->
+      <div class="slide" style="background-image: url('image/herobg.png');">
+        <div class="hero-content">
+          <div class="tag">Trendy Collection's</div>
+          <div class="curved-text">
+            <h1>Easy Mix <br> <span>Complete Protein</span></h1>
+            <svg class="underline" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 35 Q 100 5 195 20" stroke="#3f0071" stroke-width="3" fill="transparent" />
+            </svg>
+          </div>
+          <p>Elevate your workout with our Complete Protein box, packed with a balanced blend of essential amino acids for muscle repair and growth. Ideal for post-workout recovery and strength building.</p>
+          <a href="#" class="btn">Explore now</a>
+          <div class="dots"><span></span><span></span><span></span><span class="active"></span></div>
+        </div>
+        <div class="hero-image"><img src="image/hero4.png" alt="Post Workout"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO RIGHT SECTION -->
+  
+<div class="hero-right">
+  <section class="power-protein">
+    <p class="top-line">LIMITED TIME ONLY</p>
+
+    <div class="single-brush">
+      <span class="top-word">POWER</span>
+      <span class="bottom-word">PROTEIN</span>
+    </div>
+
+    <p class="sub-line">GET UP TO 50% OFF</p>
+
+    <img src="image/heroright.png" alt="Power Protein">
+    <a href="#" class="shop-btn">Shop Now</a>
+  </section>
+</div>
+
+  <!-- RIGHT SIDE VERTICAL MENU -->
+<div class="right-menu">
+  <!-- Scroll Up button -->
+  <button class="scroll-btn up">&#9650;</button>
+
+  <!-- Scrollable items -->
+  <div class="scroll-container">
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu1.png" alt=""></div>
+      <p>Whey Protein</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu2.png" alt=""></div>
+      <p>Mass Gainer</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu3.png" alt=""></div>
+      <p>Pre Workout</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu4.png" alt=""></div>
+      <p>Whey Protein</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu5.png" alt=""></div>
+      <p>Mass Gainer</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu6.png" alt=""></div>
+      <p>Pre Workout</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu1.png" alt=""></div>
+      <p>Whey Protein</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu2.png" alt=""></div>
+      <p>Mass Gainer</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu3.png" alt=""></div>
+      <p>Pre Workout</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu4.png" alt=""></div>
+      <p>Whey Protein</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu5.png" alt=""></div>
+      <p>Mass Gainer</p>
+    </div>
+    <div class="menu-item">
+      <div class="circle"><img src="image/scrollmenu6.png" alt=""></div>
+      <p>Pre Workout</p>
+    </div>
+  </div>
+
+  <!-- Scroll Down button -->
+  <button class="scroll-btn down">&#9660;</button>
+</div>
+
+<div class="hero-info-bar">
+  <div class="info-item">
+    <div class="icon-heading">
+      <img src="image/infobar1.png" alt="Free Shipping">
+      <span class="info-heading">Free Shipping</span>
+    </div>
+    <span class="info-text">Lorem Ipsum available the majority have suffered alternation some</span>
+  </div>
+  <div class="info-item">
+    <div class="icon-heading">
+      <img src="image/infobar2.png" alt="Quality Materials">
+      <span class="info-heading">Quality Materials</span>
+    </div>
+    <span class="info-text">Lorem Ipsum available the majority have suffered alternation some</span>
+  </div>
+  <div class="info-item">
+    <div class="icon-heading">
+      <img src="image/infobar3.png" alt="Secure Payment">
+      <span class="info-heading">Secure Payment</span>
+    </div>
+    <span class="info-text">Lorem Ipsum available the majority have suffered alternation some</span>
+  </div>
+</div>
+</header>
+
+
+ <!-- ===== MAIN SECTION ===== -->
+
+<main>
+  <!-- Heading Section -->
+  
+<div class="heading-section">
+  <h1>Top Deals</h1>
+  <div class="line-box-line">
+    <div class="line left-line"></div>
+    
+    <!-- Outer box with inner box -->
+    <div class="small-box">
+      <div class="inner-box"></div>
+    </div>
+    
+    <div class="line right-line"></div>
+  </div>
+</div>
+
+  <!-- Product Cards Wrapper for horizontal scroll -->
+  <div class="cards-wrapper">
+    <!-- Product Card 1 -->
+    <div class="product-card">
+      <!-- Left Info -->
+      <div class="product-info">
+        <div class="dosage">500mg - 200 vcaps</div>
+        <h2>Quercetion</h2>
+        <div class="price">
+          Rs. 5,000 <span class="original">Rs. 10,000</span>
+        </div>
+        <div class="offer">
+          <div class="discount">50% off</div>
+          <div class="save">Save Rs.5,000</div>
+        </div>
+        <a href="nextpage.html" class="btn-view">View Product →</a>
+      </div>
+
+      <!-- Right Image -->
+      <div class="product-image">
+        <div class="image-wrapper">
+          <img src="image/Ellipse 24.png" alt="Background" class="bg-image">
+          <img src="image/hero1.png" alt="Quercetion" class="product-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Card 2 -->
+    <div class="product-card">
+      <div class="product-info">
+        <div class="dosage">300mg - 150 vcaps</div>
+        <h2>Vitamin C</h2>
+        <div class="price">
+          Rs. 3,000 <span class="original">Rs. 6,000</span>
+        </div>
+        <div class="offer">
+          <div class="discount">50% off</div>
+          <div class="save">Save Rs.3,000</div>
+        </div>
+        <a href="nextpage.html" class="btn-view">View Product →</a>
+      </div>
+      <div class="product-image">
+        <div class="image-wrapper">
+          <img src="image/Ellipse 24.png" alt="Background" class="bg-image">
+          <img src="image/hero2.png" alt="Vitamin C" class="product-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Card 3 -->
+    <div class="product-card">
+      <div class="product-info">
+        <div class="dosage">250mg - 100 vcaps</div>
+        <h2>Omega 3</h2>
+        <div class="price">
+          Rs. 4,000 <span class="original">Rs. 8,000</span>
+        </div>
+        <div class="offer">
+          <div class="discount">50% off</div>
+          <div class="save">Save Rs.4,000</div>
+        </div>
+        <a href="nextpage.html" class="btn-view">View Product →</a>
+      </div>
+      <div class="product-image">
+        <div class="image-wrapper">
+          <img src="image/Ellipse 24.png" alt="Background" class="bg-image">
+          <img src="image/hero3.png" alt="Omega 3" class="product-img">
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <!-- Left Info -->
+      <div class="product-info">
+        <div class="dosage">500mg - 200 vcaps</div>
+        <h2>Quercetion</h2>
+        <div class="price">
+          Rs. 5,000 <span class="original">Rs. 10,000</span>
+        </div>
+        <div class="offer">
+          <div class="discount">50% off</div>
+          <div class="save">Save Rs.5,000</div>
+        </div>
+        <a href="nextpage.html" class="btn-view">View Product →</a>
+      </div>
+
+      <!-- Right Image -->
+      <div class="product-image">
+        <div class="image-wrapper">
+          <img src="image/Ellipse 24.png" alt="Background" class="bg-image">
+          <img src="image/hero1.png" alt="Quercetion" class="product-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Card 2 -->
+    <div class="product-card">
+      <div class="product-info">
+        <div class="dosage">300mg - 150 vcaps</div>
+        <h2>Vitamin C</h2>
+        <div class="price">
+          Rs. 3,000 <span class="original">Rs. 6,000</span>
+        </div>
+        <div class="offer">
+          <div class="discount">50% off</div>
+          <div class="save">Save Rs.3,000</div>
+        </div>
+        <a href="nextpage.html" class="btn-view">View Product →</a>
+      </div>
+      <div class="product-image">
+        <div class="image-wrapper">
+          <img src="image/Ellipse 24.png" alt="Background" class="bg-image">
+          <img src="image/hero2.png" alt="Vitamin C" class="product-img">
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <!-- Left Info -->
+      <div class="product-info">
+        <div class="dosage">500mg - 200 vcaps</div>
+        <h2>Quercetion</h2>
+        <div class="price">
+          Rs. 5,000 <span class="original">Rs. 10,000</span>
+        </div>
+        <div class="offer">
+          <div class="discount">50% off</div>
+          <div class="save">Save Rs.5,000</div>
+        </div>
+        <a href="nextpage.html" class="btn-view">View Product →</a>
+      </div>
+
+      <!-- Right Image -->
+      <div class="product-image">
+        <div class="image-wrapper">
+          <img src="image/Ellipse 24.png" alt="Background" class="bg-image">
+          <img src="image/hero1.png" alt="Quercetion" class="product-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Card 2 -->
+    <div class="product-card">
+      <div class="product-info">
+        <div class="dosage">300mg - 150 vcaps</div>
+        <h2>Vitamin C</h2>
+        <div class="price">
+          Rs. 3,000 <span class="original">Rs. 6,000</span>
+        </div>
+        <div class="offer">
+          <div class="discount">50% off</div>
+          <div class="save">Save Rs.3,000</div>
+        </div>
+        <a href="nextpage.html" class="btn-view">View Product →</a>
+      </div>
+      <div class="product-image">
+        <div class="image-wrapper">
+          <img src="image/Ellipse 24.png" alt="Background" class="bg-image">
+          <img src="image/hero2.png" alt="Vitamin C" class="product-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+  <!-- ===== SHOP BY GOAL ===== -->
+ <section class="shop-by-goal">
+  <div class="shop-heading-goal">
+    <h2>Shop by goal</h2>
+
+    <!-- Decorative image under h2 -->
+    <img class="decor-image-goal" src="image/h2bord.png" alt="Decoration">
+
+    <p>Visit our shop to see amazing creations from our Gym house</p>
+  </div>
+
+  <div class="goal-cards-wrapper">
+    <div class="goal-cards">
+  <a href="loss.html">
+    <div class="goal-card"><img src="image/goal1.png"><h3>Weight Loss</h3><p>40 Items</p></div></a>
+      <div class="goal-card"><img src="image/goal2.png"><h3>Weight Loss</h3><p>28 Items</p></div>
+      <div class="goal-card"><img src="image/goal3.png"><h3>Energy</h3><p>22 Items</p></div>
+      <div class="goal-card"><img src="image/goal4.png"><h3>Strength</h3><p>18 Items</p></div>
+      <div class="goal-card"><img src="image/goal5.png"><h3>Endurance</h3><p>25 Items</p></div>
+      <div class="goal-card"><img src="image/goal1.png"><h3>Recovery</h3><p>15 Items</p></div>
+      <div class="goal-card"><img src="image/goal2.png"><h3>Muscle Gain</h3><p>40 Items</p></div>
+      <div class="goal-card"><img src="image/goal3.png"><h3>Weight Loss</h3><p>28 Items</p></div>
+      <div class="goal-card"><img src="image/goal4.png"><h3>Energy</h3><p>22 Items</p></div>
+      <div class="goal-card"><img src="image/goal5.png"><h3>Strength</h3><p>18 Items</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PROTEIN BANNER ===== -->
+<div class="protein-banner-wrapper">
+  <div class="protein-banner-container">
+    <!-- Banner 1 -->
+    <div class="protein-banner">
+      <div class="protein-banner-text">
+        <p class="highlight">Get Ready To Fight</p>
+        <h1>TAKE ON THE DAY!</h1>
+        <p>Explore our Eco-Friendly Protein Collection for a best body<br>building energy</p>
+      </div>
+      <div class="protein-banner-image">
+        <img src="image/banner.png" alt="Protein Collection">
+      </div>
+    </div>
+      <!--chota banner 1-->
+      <div class="protein-banner2">
+      <div class="protein-banner-text2">
+        <p class="highlight">10% Discount</p>
+        <h1>WEEKEND SELL</h1>
+        <p>Use this exceptional sale to add extra <br> protein to your collection</p>
+      </div>
+      <div class="protein-banner-image2">
+        <img src="image/banner2.png" alt="Protein Collection">
+      </div>
+    </div>
+    <!--chota banner 2-->
+     <div class="protein-banner2">
+      <div class="protein-banner-text2">
+        <p class="highlight">10% Discount</p>
+        <h1>WEEKEND SELL</h1>
+        <p>Use this exceptional sale to add extra <br> protein to your collection</p>
+      </div>
+      <div class="protein-banner-image2">
+        <img src="image/banner2.png" alt="Protein Collection">
+      </div>
+    </div>
+    <!-- Banner 2 -->
+<div class="protein-banner">
+      <div class="protein-banner-text">
+        <p class="highlight">Get Ready To Fight</p>
+        <h1>TAKE ON THE DAY!</h1>
+        <p>Explore our Eco-Friendly Protein Collection for a best body<br>building energy</p>
+      </div>
+      <div class="protein-banner-image">
+        <img src="image/banner.png" alt="Protein Collection">
+      </div>
+    </div>
+     <!--chota banner 3-->
+     <div class="protein-banner2">
+      <div class="protein-banner-text2">
+        <p class="highlight">10% Discount</p>
+        <h1>WEEKEND SELL</h1>
+        <p>Use this exceptional sale to add extra <br> protein to your collection</p>
+      </div>
+      <div class="protein-banner-image2">
+        <img src="image/banner2.png" alt="Protein Collection">
+      </div>
+    </div>
+
+
+    <!-- Banner 3 -->
+    <div class="protein-banner">
+      <div class="protein-banner-text">
+        <p class="highlight">Get Ready To Fight</p>
+        <h1>TAKE ON THE DAY!</h1>
+        <p>Explore our Eco-Friendly Protein Collection for a best body<br>building energy</p>
+      </div>
+      <div class="protein-banner-image">
+        <img src="image/banner.png" alt="Protein Collection">
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+  <!-- ===== SHOP BY SPORT SECTION ===== -->
+ <section class="shop-by-sport">
+  <div class="shop-heading-sport">
+    <h2>Shop by Sports</h2>
+    
+    <!-- Decorative image under h2 -->
+    <img class="decor-image-sport" src="image/h2bord.png" alt="Decoration">
+
+    <p>Visit our shop to see amazing creations from our Gym house</p>
+  </div>
+
+  <div class="sport-cards-wrapper">
+    <div class="sport-cards">
+      
+    <a href="loss.html">
+      <div class="sport-card"><img src="image/goal1.png"><h3>Cricket</h3><p>50 Items</p></div></a>
+      <div class="sport-card"><img src="image/goal2.png"><h3>Football</h3><p>35 Items</p></div>
+      <div class="sport-card"><img src="image/goal3.png"><h3>Basketball</h3><p>20 Items</p></div>
+      <div class="sport-card"><img src="image/goal4.png"><h3>Tennis</h3><p>15 Items</p></div>
+      <div class="sport-card"><img src="image/goal5.png"><h3>Hockey</h3><p>18 Items</p></div>
+      <div class="sport-card"><img src="image/goal1.png"><h3>Badminton</h3><p>22 Items</p></div>
+      <div class="sport-card"><img src="image/goal2.png"><h3>Volleyball</h3><p>12 Items</p></div>
+      <div class="sport-card"><img src="image/goal3.png"><h3>Swimming</h3><p>8 Items</p></div>
+      <div class="sport-card"><img src="image/goal4.png"><h3>Running</h3><p>30 Items</p></div>
+      <div class="sport-card"><img src="image/goal5.png"><h3>Cycling</h3><p>14 Items</p></div>
+    </div>
+  </div>
+</section>
+
+
+  
+
+  <!-- ===== SPORTS STARS SECTION ===== -->
+ <section class="sports-stars">
+  <div class="sports-heading">
+    <h2>Sports Stars</h2>
+    <!-- Decorative image -->
+    <img class="decor-image" src="image/h2bord.png" alt="Decoration">
+  </div>
+
+  <div class="sports-carousel">
+    <div class="arrow left"></div>
+    <div class="sports-cards" id="sportsCards">
+      <!-- Card 1 -->
+      <div class="sports-card">
+        <img src="image/sports.png" alt="Neeraj Chopra">
+        <div class="sports-text">
+          <h3>Neeraj Chopra</h3>
+          <h4>Men’s javelin throw</h4>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  </p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="sports-card">
+        <img src="image/sports.png" alt="Neeraj Chopra">
+        <div class="sports-text">
+          <h3>Neeraj Chopra</h3>
+          <h4>Men’s javelin throw</h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  </p>
+
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="sports-card">
+        <img src="image/sports.png" alt="Neeraj Chopra">
+        <div class="sports-text">
+          <h3>Neeraj Chopra</h3>
+          <h4>Men’s javelin throw</h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  </p>
+
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="sports-card">
+        <img src="image/sports.png" alt="Neeraj Chopra">
+        <div class="sports-text">
+          <h3>Neeraj Chopra</h3>
+          <h4>Men’s javelin throw</h4>
+           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  </p>
+        </div>
+      </div>
+    </div>
+    <div class="arrow right"></div>
+  </div>
+</section>
+
+  <!-- ===== TOP BRANDS SECTION ===== -->
+
+ <section class="top-brands">
+  <h2>Top brands</h2>
+
+  <!-- Decorative image right under h2 -->
+  <img class="decor-image" src="image/h2bord.png" alt="Decoration">
+
+  <!-- Single combined brand image -->
+  <img class="brand-image" src="image/topbrand.png" alt="Top Brands">
+</section>
+    
+  
+
+  <!-- ===== FOOTER ===== -->
+
+<footer>
+  <div class="footer-container">
+
+    <!-- Left Section -->
+    <div class="footer-left">
+      <img src="image/white logo.png" alt="Logo" />
+      <p>BEYOND JUST WORK, B-38, Old DLF Colony,<br>Sector 14, Gurugram, Haryana 122001</p>
+      <p>Call us : +91 6969696969</p>
+      <p>Email : support@gmail.com</p>
+      <div class="social-icons">
+        <a href="#"><img src="image/facebook1.png" alt="Facebook" /></a>
+        <a href="#"><img src="image/twitter2.png" alt="Twitter" /></a>
+        <a href="#"><img src="image/linkedin3.png" alt="LinkedIn" /></a>
+        <a href="#"><img src="image/pinterest4.png" alt="Pinterest" /></a>
+        <a href="#"><img src="image/instagram5.png" alt="Instagram" /></a>
+      </div>
+    </div>
+
+   
+    <div class="footer-column-wrapper">
+      <div class="shop-by footer-column">
+        <h4>Shop by</h4>
+        <ul>
+          <li><a href="brands.html">Brands</a></li>
+          <li><a href="shop-by-goal.html">Shop by goal</a></li>
+          <li><a href="top10.html">Top 10</a></li>
+          <li><a href="beauty.html">Beauty</a></li>
+        </ul>
+      </div>
+
+      <div class="information footer-column">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+        </ul>
+      </div>
+
+      <div class="customer-service footer-column">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="help.html">Help & FAQs</a></li>
+          <li><a href="terms.html">Terms & Conditions</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="returns.html">Online Returns Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter">
+      <h4>Newsletter Sign Up</h4>
+      <p>Receive our latest updates about our products and promotions.</p>
+      <form>
+        <input type="email" placeholder="Email" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <label>
+        <input type="checkbox" />
+        I agree with the Terms of Use and Privacy Policy and I declare that I have read the information required in accordance with Article 13 of GDPR
+      </label>
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <p>Logo © 2023. All Rights Reserved</p>
+    <div class="payment-icons">
+      <img src="image/mastercard_logo.png" alt="Mastercard" />
+      <img src="image/VISA_logo.png" alt="Visa" />
+      <img src="image/American_Express_logo.png" alt="Amex" />
+      <img src="image/PayPal_logo.png" alt="PayPal" />
+      <img src="image/GooglePay_logo.png" alt="Google Pay" />
+    </div>
+  </div>
+</footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
